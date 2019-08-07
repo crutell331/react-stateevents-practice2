@@ -8,7 +8,7 @@ const App = () => {
       <BeyContainer />
       <Favorites />
     </div>
-  );
-};
+  );
+};
 
-export default App;
+export default App;
