@@ -16,6 +16,20 @@ class App extends React.Component {
   }
 
   handleClick = bey => {
+    fetch(`http://localhost:4000/beys/${bey.props.info.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        favorite: !bey.props.info.favorite
+      })
+    })
+      .then(resp => resp.json())
+      .then(json => {
+        console.log(json)
+      })
+
     let allBeys = this.state.favBeys
     let newBeys = allBeys.filter(beyInstance => beyInstance !== bey.props.info)
     bey.props.info.favorite = !bey.props.info.favorite
