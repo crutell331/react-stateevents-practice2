@@ -1,12 +1,17 @@
-import React from "react";
+import React from "react"
 
-const BeyCard = () => {
-  return (
-    <div>
-      <h3>{/*Bey name goes here*/}</h3>
-      {/*image tag goes here*/}
-    </div>
-  );
-};
+class BeyCard extends React.Component {
+  state = { fav: this.props.info.favorite }
 
-export default BeyCard;
+  render() {
+    const beyInfo = this.props.info
+    return (
+      <div onClick={() => this.props.clicked(this)}>
+        <h3>{beyInfo.name}</h3>
+        {<img src={beyInfo.img} />}
+      </div>
+    )
+  }
+}
+
+export default BeyCard

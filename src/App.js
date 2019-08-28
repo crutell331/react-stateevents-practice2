@@ -1,14 +1,37 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React, { Component } from "react"
+import logo from "./logo.svg"
+import "./App.css"
+import BeyContainer from "./BeyContainer"
+import Favorites from "./Favorites"
 
-const App = () => {
-  return (
-    <div className="container">
-      <BeyContainer />
-      <Favorites />
-    </div>
-  );
-};
+class App extends React.Component {
+  state = { allBeys: [], favBeys: [] }
 
-export default App;
+  componentDidMount() {
+    fetch("http://localhost:4000/beys")
+      .then(resp => resp.json())
+      .then(json => {
+        this.setState({ allBeys: json, favBeys: json })
+      })
+  }
+
+  handleClick = bey => {
+    let allBeys = this.state.favBeys
+    let newBeys = allBeys.filter(beyInstance => beyInstance !== bey.props.info)
+    bey.props.info.favorite = !bey.props.info.favorite
+    newBeys = [bey.props.info, ...newBeys]
+    this.setState({ favBeys: newBeys })
+  }
+
+  render() {
+    // console.log("APP", this.state.allBeys)
+    return (
+      <div className="container">
+        <BeyContainer allBeys={this.state.allBeys} clicked={this.handleClick} />
+        <Favorites favBeys={this.state.favBeys} clicked={this.handleClick} />
+      </div>
+    )
+  }
+}
+
+export default App
